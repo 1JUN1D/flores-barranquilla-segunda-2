@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+    <meta charset="UTF-8">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CHMZQPYGZL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CHMZQPYGZL');
+</script>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entrega de Flores en Hospitales de Medellín - Floristería Imperial Love. Servicio especializado con conocimiento de protocolos hospitalarios, entregas en habitaciones y arreglos apropiados para pacientes.">
+    <meta name="keywords" content="flores hospitales Medellín, entrega flores clínicas, flores para enfermos, arreglos hospitalarios, flores recuperación Medellín">
+    <title>Entrega de Flores en Hospitales de Medellín - Floristería Imperial Love | Servicio Especializado</title>
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Entrega de Flores en Hospitales de Medellín - Floristería Imperial Love">
+    <meta property="og:description" content="Servicio especializado en entregas hospitalarias. Conocemos los protocolos de cada hospital y llevamos flores apropiadas para pacientes.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://floresbarranquilla.dondeseria.com/entrega-hospitales-barranquilla">
+    <meta property="og:image" content="https://floristeriamylittlegarden.com/assets/images/entrega-hospitales.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/service-template.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logo.webp">
+    
+    <!-- Canonical -->
+    <link rel="canonical" href="http://floresbarranquilla.dondeseria.com/entrega-hospitales-barranquilla">
+</head>
+<body>
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Hero Section -->
+    <section class="service-hero">
+        <div class="service-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=1920&q=80');"></div>
+        <div class="container">
+            <div class="service-hero-content">
+                <nav class="breadcrumb">
+                    <a href="/">Inicio</a>
+                    <span class="separator">›</span>
+                    <a href="/entrega-de-flores-barranquilla.html">Entrega de Flores</a>
+                    <span class="separator">›</span>
+                    <span class="current">Entrega en Hospitales</span>
+                </nav>
+                <h1>Entrega de Flores en Hospitales de Medellín</h1>
+                <p class="service-tagline">
+                    Servicio especializado que conoce los protocolos de cada hospital para llevar alegría y ánimo a tus seres queridos
+                </p>
+                <div class="service-cta-buttons">
+                    <a href="https://wa.me/573001493552?text=Hola,%20necesito%20entrega%20de%20flores%20en%20hospital" class="btn btn-primary" target="_blank">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                        </svg>
+                        Enviar a Hospital
+                    </a>
+                    <a href="tel:+573001493552" class="btn btn-secondary">
+                        📞 Llamar Ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="service-content-section">
+        <div class="container">
+            <div class="service-content-grid">
+                <!-- Main Content -->
+                <div class="service-main-content">
+                    <h2>Especialistas en Entregas Hospitalarias</h2>
+                    <p>
+                        Los envíos a centros médicos demandan un conocimiento particular sobre normativas institucionales, 
+                        franjas horarias de acceso, limitaciones por áreas sensibles y selección adecuada de flores para 
+                        espacios clínicos. En Floristería Imperial Love contamos con amplia trayectoria realizando entregas 
+                        en los principales hospitales y clínicas de Medellín, asegurando que tus flores arriben a la 
+                        habitación indicada, respetando íntegramente todas las regulaciones vigentes.
+                    </p>
+
+                    <div class="service-highlight-box">
+                        <h3>🏥 Nuestro Servicio Incluye</h3>
+                        <ul>
+                            <li><strong>Conocimiento de Protocolos:</strong> Familiarizados con las normas de cada hospital</li>
+                            <li><strong>Flores Apropiadas:</strong> Arreglos sin polen ni aromas fuertes</li>
+                            <li><strong>Coordinación con Seguridad:</strong> Gestión de permisos y accesos</li>
+                            <li><strong>Entrega en Habitación:</strong> Llevamos las flores directamente al paciente</li>
+                            <li><strong>Horarios de Visita:</strong> Entregas dentro de los horarios permitidos</li>
+                            <li><strong>Confirmación Discreta:</strong> Respetamos la privacidad del paciente</li>
+                        </ul>
+                    </div>
+
+                    <h2>Hospitales y Clínicas Que Atendemos</h2>
+
+                    <h3>🏥 Hospitales Principales</h3>
+                    <p>
+                        Efectuamos entregas de manera regular en las instituciones médicas más reconocidas de Medellín: 
+                        Clínica General del Norte, Clínica La Asunción, Hospital Universidad del Norte, Clínica Blas de Lezo, 
+                        Clínica Iberoamérica, Clínica Portoazul, Clínica de la Costa, Hospital Metropolitano, entre muchas otras. 
+                        Dominamos sus protocolos particulares, ventanas horarias habilitadas, restricciones florales específicas 
+                        y mecanismos de control de acceso que cada una implementa.
+                    </p>
+
+                    <h3>🏨 Clínicas Especializadas</h3>
+                    <p>
+                        También brindamos servicio a instituciones especializadas como unidades oncológicas, clínicas obstétricas, 
+                        centros de rehabilitación física y hospitales pediátricos. Comprendemos que cada tipo de establecimiento 
+                        sanitario pose
