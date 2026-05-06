@@ -41,37 +41,52 @@
         </div>
     </section>
 
-    <!-- Filters Section -->
+    <!-- Search + Filters Section -->
     <section class="catalog-filters">
         <div class="container">
+            <div class="search-wrap">
+                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre o código (ej: 025, rosas, ferrero)" aria-label="Buscar productos">
+            </div>
             <div class="filters-container">
                 <span class="filter-label">Filtrar por:</span>
-                <button class="filter-btn active" onclick="filterProducts('all')">Todos</button>
-                <button class="filter-btn" onclick="filterProducts('Rosas Rojas')">Rosas Rojas</button>
-                <button class="filter-btn" onclick="filterProducts('Rosas Rosadas')">Rosas Rosadas</button>
-                <button class="filter-btn" onclick="filterProducts('Rosas Amarillas')">Rosas Amarillas</button>
-                <button class="filter-btn" onclick="filterProducts('Combinación de Rosas')">Combinación</button>
-                <button class="filter-btn" onclick="filterProducts('Girasoles')">Girasoles</button>
-                <button class="filter-btn" onclick="filterProducts('Girasoles y Rosas')">Girasoles y Rosas</button>
-                <button class="filter-btn" onclick="filterProducts('Cajas Premium')">Cajas Premium</button>
-                <button class="filter-btn" onclick="filterProducts('Rosas con Ferrero')">Con Ferrero</button>
-                <button class="filter-btn" onclick="filterProducts('Cumpleaños')">Cumpleaños</button>
-                <button class="filter-btn" onclick="filterProducts('Ramos Nupciales')">Nupciales</button>
-                <button class="filter-btn" onclick="filterProducts('Arreglos Fúnebres')">Fúnebres</button>
+                <button class="filter-btn active" onclick="filterProducts('all', this)">Todos</button>
+                <button class="filter-btn" onclick="filterProducts('Rosas Rojas', this)">Rosas Rojas</button>
+                <button class="filter-btn" onclick="filterProducts('Rosas Rosadas', this)">Rosas Rosadas</button>
+                <button class="filter-btn" onclick="filterProducts('Rosas Amarillas', this)">Rosas Amarillas</button>
+                <button class="filter-btn" onclick="filterProducts('Combinación de Rosas', this)">Combinación</button>
+                <button class="filter-btn" onclick="filterProducts('Girasoles', this)">Girasoles</button>
+                <button class="filter-btn" onclick="filterProducts('Girasoles y Rosas', this)">Girasoles y Rosas</button>
+                <button class="filter-btn" onclick="filterProducts('Cajas Premium', this)">Cajas Premium</button>
+                <button class="filter-btn" onclick="filterProducts('Rosas con Ferrero', this)">Con Ferrero</button>
+                <button class="filter-btn" onclick="filterProducts('Cumpleaños', this)">Cumpleaños</button>
+                <button class="filter-btn" onclick="filterProducts('Ramos Nupciales', this)">Nupciales</button>
+                <button class="filter-btn" onclick="filterProducts('Arreglos Fúnebres', this)">Fúnebres</button>
             </div>
         </div>
     </section>
 
-    <!-- Products Grid -->
+    <!-- Products by price columns -->
     <section class="catalog-section">
         <div class="container">
             <div class="results-counter" id="resultsCounter"></div>
-            <div class="products-grid" id="productsGrid">
-                <!-- Los productos se cargarán con JavaScript -->
+            <div class="products-columns" id="productsColumns">
+                <div class="price-column">
+                    <div class="price-column-header">Económicos<small>Los precios más accesibles</small></div>
+                    <div class="price-column-products" id="colCheap"></div>
+                </div>
+                <div class="price-column">
+                    <div class="price-column-header">Intermedios<small>Detalle equilibrado</small></div>
+                    <div class="price-column-products" id="colMedium"></div>
+                </div>
+                <div class="price-column">
+                    <div class="price-column-header">Premium<small>Lujo y abundancia</small></div>
+                    <div class="price-column-products" id="colExpensive"></div>
+                </div>
             </div>
             <div class="empty-state" id="emptyState">
                 <h3>No se encontraron productos</h3>
-                <p>Prueba seleccionando otra categoría del filtro</p>
+                <p>Prueba con otra búsqueda o categoría.</p>
             </div>
         </div>
     </section>

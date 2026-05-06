@@ -1,48 +1,90 @@
 // ===================================
-// FUNCIONES DEL CATÁLOGO
+// CATÁLOGO - búsqueda, filtros, 3 columnas por precio
+// CASA del PETALO - Barranquilla
 // ===================================
 
 let currentFilter = 'all';
+let searchQuery = '';
 
-// Cargar productos al iniciar
 document.addEventListener('DOMContentLoaded', function() {
+    const search = document.getElementById('searchInput');
+    if (search) {
+        search.addEventListener('input', function(e) {
+            searchQuery = (e.target.value || '').trim();
+            renderProducts();
+        });
+    }
     renderProducts();
     initScrollTop();
 });
 
-// Renderizar productos
-function renderProducts() {
-    const grid = document.getElementById('productsGrid');
-    const counter = document.getElementById('resultsCounter');
-    const emptyState = document.getElementById('emptyState');
-    
-    grid.innerHTML = '';
-    
-    const filtered = currentFilter === 'all' 
-        ? products 
-        : products.filter(p => p.category.includes(currentFilter) || p.category === currentFilter);
-    
-    if (filtered.length === 0) {
-        emptyState.classList.add('active');
-        counter.innerHTML = '';
-        return;
+function applyFilters() {
+    let list = products.slice();
+    if (currentFilter !== 'all') {
+        list = list.filter(p => p.category === currentFilter);
     }
-    
-    emptyState.classList.remove('active');
-    counter.innerHTML = `Mostrando <strong>${filtered.length}</strong> productos`;
-    
-    filtered.forEach(product => {
-        const card = createProductCard(product);
-        grid.appendChild(card);
+    if (searchQuery) {
+        const q = searchQuery.toLowerCase();
+        list = list.filter(p =>
+            (p.name && p.name.toLowerCase().indexOf(q) !== -1) ||
+            (p.code && p.code.toLowerCase().indexOf(q) !== -1) ||
+            (p.description && p.description.toLowerCase().indexOf(q) !== -1)
+        );
+    }
+    list.sort((a, b) => {
+        const ap = a.price || Number.MAX_SAFE_INTEGER;
+        const bp = b.price || Number.MAX_SAFE_INTEGER;
+        return ap - bp;
     });
+    return list;
 }
 
-// Crear tarjeta de producto
+function renderProducts() {
+    const colCheap = document.getElementById('colCheap');
+    const colMid   = document.getElementById('colMedium');
+    const colExp   = document.getElementById('colExpensive');
+    const counter  = document.getElementById('resultsCounter');
+    const empty    = document.getElementById('emptyState');
+
+    const list = applyFilters();
+
+    if (list.length === 0) {
+        colCheap.innerHTML = colMid.innerHTML = colExp.innerHTML = '';
+        if (empty) empty.classList.add('active');
+        if (counter) counter.innerHTML = '';
+        return;
+    }
+    if (empty) empty.classList.remove('active');
+    if (counter) counter.innerHTML = 'Mostrando <strong>' + list.length + '</strong> producto' +
+        (list.length === 1 ? '' : 's') +
+        (currentFilter !== 'all' ? ' en "<strong>' + currentFilter + '</strong>"' : '') +
+        (searchQuery ? ' que coinciden con "<strong>' + searchQuery + '</strong>"' : '');
+
+    const total = list.length;
+    const third = Math.ceil(total / 3);
+    const cheap = list.slice(0, third);
+    const mid   = list.slice(third, third * 2);
+    const exp   = list.slice(third * 2);
+
+    fillColumn(colCheap, cheap);
+    fillColumn(colMid, mid);
+    fillColumn(colExp, exp);
+}
+
+function fillColumn(target, items) {
+    target.innerHTML = '';
+    if (!items.length) {
+        target.innerHTML = '<p class="price-column-empty">Sin productos en este rango</p>';
+        return;
+    }
+    items.forEach(p => target.appendChild(createProductCard(p)));
+}
+
 function createProductCard(product) {
     const card = document.createElement('div');
     card.className = 'product-card';
     card.setAttribute('data-category', product.category);
-    
+
     const formattedPrice = product.priceLabel
         ? product.priceLabel
         : new Intl.NumberFormat('es-CO', {
@@ -50,9 +92,10 @@ function createProductCard(product) {
             currency: 'COP',
             minimumFractionDigits: 0
         }).format(product.price);
-    
+
+    const safeName = (product.name || '').replace(/'/g, "\\'");
     card.innerHTML = `
-        <div class="product-image-container" onclick="openLightbox('${product.image}', 'COD_${product.code} - ${product.name}', '${formattedPrice}')">
+        <div class="product-image-container" onclick="openLightbox('${product.image}', 'COD_${product.code} - ${safeName}', '${formattedPrice}')">
             <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
             <div class="zoom-icon">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +112,7 @@ function createProductCard(product) {
                     <span class="price-label">Precio</span>
                     <div class="product-price">${formattedPrice}</div>
                 </div>
-                <a href="#" class="btn-order" onclick="orderProduct('COD_${product.code}', '${product.name}', ${product.price}); return false;">
+                <a href="#" class="btn-order" onclick="orderProduct('COD_${product.code}', '${safeName}', ${product.price}); return false;">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
                     </svg>
@@ -78,50 +121,33 @@ function createProductCard(product) {
             </div>
         </div>
     `;
-    
     return card;
 }
 
-// Filtrar productos
-function filterProducts(category) {
+function filterProducts(category, btnEl) {
     currentFilter = category;
-    
-    // Actualizar botones activos
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    event.target.classList.add('active');
-    
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    if (btnEl) btnEl.classList.add('active');
     renderProducts();
-    
-    // Scroll suave al inicio de productos
-    document.getElementById('productsGrid').scrollIntoView({ behavior: 'smooth' });
+    const grid = document.getElementById('productsColumns');
+    if (grid) grid.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Abrir lightbox
 function openLightbox(image, title, price) {
     const lightbox = document.getElementById('lightbox');
-    const lightboxImage = document.getElementById('lightboxImage');
-    const lightboxTitle = document.getElementById('lightboxTitle');
-    const lightboxPrice = document.getElementById('lightboxPrice');
-    
-    lightboxImage.src = image;
-    lightboxTitle.textContent = title;
-    lightboxPrice.textContent = price;
+    document.getElementById('lightboxImage').src = image;
+    document.getElementById('lightboxTitle').textContent = title;
+    document.getElementById('lightboxPrice').textContent = price;
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
 
-// Cerrar lightbox
 function closeLightbox() {
-    const lightbox = document.getElementById('lightbox');
-    lightbox.classList.remove('active');
+    document.getElementById('lightbox').classList.remove('active');
     document.body.style.overflow = '';
 }
 
-// Ordenar producto
 function orderProduct(code, name, price) {
-    // Enviar evento a Google Analytics
     if (typeof gtag !== 'undefined') {
         gtag('event', 'product_order', {
             'event_category': 'Catalog',
@@ -130,31 +156,19 @@ function orderProduct(code, name, price) {
             'product_name': name
         });
     }
-    
     const formattedPrice = price && price > 0
-        ? new Intl.NumberFormat('es-CO', {
-            style: 'currency',
-            currency: 'COP',
-            minimumFractionDigits: 0
-        }).format(price)
+        ? new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }).format(price)
         : 'precio a cotizar';
-
     const message = `Hola, me interesa el ramo *${code} - ${name}* (${formattedPrice}). ¿Podrían darme más información?`;
-    const whatsappUrl = `https://wa.me/573242258939?text=${encodeURIComponent(message)}`;
-    
-    window.open(whatsappUrl, '_blank');
+    window.open(`https://wa.me/573242258939?text=${encodeURIComponent(message)}`, '_blank');
 }
 
-// Scroll to top
 function initScrollTop() {
     const scrollBtn = document.getElementById('scrollTop');
-    
+    if (!scrollBtn) return;
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('visible');
-        } else {
-            scrollBtn.classList.remove('visible');
-        }
+        if (window.pageYOffset > 300) scrollBtn.classList.add('visible');
+        else scrollBtn.classList.remove('visible');
     });
 }
 
@@ -162,9 +176,6 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Cerrar lightbox al presionar Escape
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeLightbox();
-    }
+    if (e.key === 'Escape') closeLightbox();
 });

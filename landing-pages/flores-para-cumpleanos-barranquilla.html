@@ -751,6 +751,140 @@
                 grid-template-columns: 1fr;
             }
         }
+    
+        /* === BUSCADOR + FILTROS + COLUMNAS POR PRECIO === */
+        .catalog-controls {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .search-wrap {
+            position: relative;
+            max-width: 560px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            border: 2px solid #e8e8e8;
+            border-radius: 50px;
+            background: #fff;
+            transition: border-color .2s, box-shadow .2s;
+            box-sizing: border-box;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary, #E91E63);
+            box-shadow: 0 4px 14px rgba(233,30,99,.15);
+        }
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            opacity: .55;
+            pointer-events: none;
+        }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        .filter-buttons .filter-btn {
+            padding: 8px 18px;
+            border: 2px solid #ddd;
+            background: #fff;
+            color: #333;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: .9rem;
+            font-weight: 500;
+            transition: all .2s;
+        }
+        .filter-buttons .filter-btn:hover {
+            border-color: var(--primary, #E91E63);
+            color: var(--primary, #E91E63);
+        }
+        .filter-buttons .filter-btn.active {
+            background: var(--primary, #E91E63);
+            border-color: var(--primary, #E91E63);
+            color: #fff;
+        }
+        .results-info {
+            text-align: center;
+            color: #777;
+            margin-bottom: 1.5rem;
+            font-size: .95rem;
+        }
+        .products-columns {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        .price-column {
+            display: flex;
+            flex-direction: column;
+        }
+        .price-column-header {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 12px 16px;
+            margin-bottom: 18px;
+            background: linear-gradient(135deg, var(--primary, #E91E63), var(--secondary, #C2185B));
+            color: #fff;
+            border-radius: 12px;
+            letter-spacing: .3px;
+        }
+        .price-column-header small {
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-size: .75rem;
+            font-weight: 400;
+            opacity: .9;
+            margin-top: 2px;
+        }
+        .price-column-products {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+        .product-code-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,.7);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: .72rem;
+            font-weight: 600;
+            letter-spacing: .5px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #999;
+            grid-column: 1 / -1;
+        }
+        .empty-state h3 { margin-bottom: .5rem; color: #555; font-family: 'Playfair Display', serif; }
+        @media (max-width: 900px) {
+            .products-columns { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 640px) {
+            .products-columns { grid-template-columns: 1fr; }
+            .price-column-header { font-size: 1.1rem; }
+        }
+
     </style>
 </head>
 <body>
@@ -887,8 +1021,42 @@
             <h2 class="section-title">Catálogo de Flores para Cumpleaños</h2>
             <p class="section-subtitle">Explora nuestros ramos de flores para cumpleaños de mujer, arreglos florales para cumpleaños y opciones de feliz cumpleaños con flores y globos</p>
             
-            <div class="products-grid" id="products-grid">
-                <!-- Los productos se generarán aquí con JavaScript -->
+            <div class="catalog-controls">
+                <div class="search-wrap">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar por nombre o código (ej: 025, rosas, ferrero)" aria-label="Buscar productos">
+                </div>
+                <div class="filter-buttons" id="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="Cumpleaños">Cumpleaños</button>
+                    <button class="filter-btn" data-filter="Girasoles">Girasoles</button>
+                    <button class="filter-btn" data-filter="Girasoles y Rosas">Girasoles y Rosas</button>
+                    <button class="filter-btn" data-filter="Rosas Rojas">Rojas</button>
+                    <button class="filter-btn" data-filter="Rosas Rosadas">Rosadas</button>
+                    <button class="filter-btn" data-filter="Cajas Premium">Cajas</button>
+                    <button class="filter-btn" data-filter="Rosas con Ferrero">Con Ferrero</button>
+                    <button class="filter-btn" data-filter="Combinación de Rosas">Combinación</button>
+                    <button class="filter-btn" data-filter="Rosas Amarillas">Amarillas</button>
+                </div>
+            </div>
+            <div class="results-info" id="results-info"></div>
+            <div class="products-columns" id="products-columns">
+                <div class="price-column">
+                    <div class="price-column-header">Económicos<small>Los precios más accesibles</small></div>
+                    <div class="price-column-products" id="col-cheap"></div>
+                </div>
+                <div class="price-column">
+                    <div class="price-column-header">Intermedios<small>Detalle equilibrado</small></div>
+                    <div class="price-column-products" id="col-medium"></div>
+                </div>
+                <div class="price-column">
+                    <div class="price-column-header">Premium<small>Lujo y abundancia</small></div>
+                    <div class="price-column-products" id="col-expensive"></div>
+                </div>
+                <div class="empty-state" id="empty-state" style="display:none">
+                    <h3>No se encontraron productos</h3>
+                    <p>Prueba con otra búsqueda o categoría.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1032,196 +1200,252 @@
 const products = [
             {
                 id: 1,
+                code: "015",
                 name: "Arreglo Cumpleaños Rosa Roja",
+                category: "Cumpleaños",
                 price: 287500,
                 image: "/assets/catalog/ramo15.webp",
                 description: "Generoso arreglo de rosas rojas con paniculata y solidago, decorado con un globo de Feliz Cumpleaños. Diseño triangular ideal para celebraciones inolvidables."
             },
             {
                 id: 2,
+                code: "023",
                 name: "Ramo Happy Birthday",
+                category: "Cumpleaños",
                 price: 275000,
                 image: "/assets/catalog/ramo23.webp",
                 description: "Festivo arreglo de rosas rosadas y blancas con abundante paniculata y cinta 'Happy Birthday'. Presentación con lazos rosados perfecta para cumpleaños."
             },
             {
                 id: 3,
+                code: "014",
                 name: "Arreglo Sol y Pasión",
+                category: "Girasoles y Rosas",
                 price: 400000,
                 image: "/assets/catalog/ramo14.webp",
                 description: "Imponente arreglo con girasoles en la parte superior y abundantes rosas rojas en la base. Composición vertical que combina alegría y romanticismo."
             },
             {
                 id: 4,
+                code: "016",
                 name: "Ramo Girasol y Rosas",
+                category: "Girasoles y Rosas",
                 price: 187500,
                 image: "/assets/catalog/ramo16.webp",
                 description: "Combinación vibrante de girasoles, rosas rojas y delicada paniculata blanca. Envuelto en papel rosado con lazo, transmite alegría y cariño en partes iguales."
             },
             {
                 id: 5,
+                code: "017",
                 name: "Ramo Girasoles con Pompones Rosa",
+                category: "Girasoles",
                 price: 187500,
                 image: "/assets/catalog/ramo17.webp",
                 description: "Ramo grande de girasoles acompañados de pompones rosados en envoltura negra con lazo dorado. Composición vistosa y luminosa para sorprender."
             },
             {
                 id: 6,
+                code: "018",
                 name: "Ramo Cono Girasoles Premium",
+                category: "Girasoles",
                 price: 312500,
                 image: "/assets/catalog/ramo18.webp",
                 description: "Espectacular ramo cono de girasoles envuelto en papel negro con detalles brillantes. Una explosión de sol que llena cualquier espacio de energía."
             },
             {
                 id: 7,
+                code: "024",
                 name: "Ramo Princesa con Corona",
+                category: "Rosas Rosadas",
                 price: 462500,
                 image: "/assets/catalog/ramo24.webp",
                 description: "Imponente bouquet de rosas rosadas y blancas decorado con una corona dorada de princesa. Diseño tipo flor con envoltura pétalo, perfecto para hacer sentir realeza."
             },
             {
                 id: 8,
+                code: "022",
                 name: "Ramo Mariposa Rosa",
+                category: "Rosas Rosadas",
                 price: 250000,
                 image: "/assets/catalog/ramo22.webp",
                 description: "Rosas rosadas dispuestas en círculo con limonium blanco y una mariposa dorada decorativa. Envoltura rosa pétalo para un regalo dulce y femenino."
             },
             {
                 id: 9,
+                code: "012",
                 name: "Caja Premium de Rosas Amarillas",
+                category: "Cajas Premium",
                 price: 200000,
                 image: "/assets/catalog/ramo12.webp",
                 description: "Arreglo en caja redonda blanca con abundantes rosas amarillas y lazo dorado. Presentación elegante para regalar alegría y prosperidad."
             },
             {
                 id: 10,
+                code: "031",
                 name: "Box Premium Rosas Bicolor",
+                category: "Cajas Premium",
                 price: 500000,
                 image: "/assets/catalog/ramo31.webp",
                 description: "Caja redonda blanca repleta de rosas rojas y rosadas en composición esférica. Una presentación lujosa y abundante para regalos verdaderamente especiales."
             },
             {
                 id: 11,
+                code: "032",
                 name: "Box Premium Fucsia y Blanco",
+                category: "Cajas Premium",
                 price: 312500,
                 image: "/assets/catalog/ramo32.webp",
                 description: "Arreglo en caja blanca con rosas blancas y fucsia formando una cúpula floral. Diseño moderno y refinado para ocasiones únicas."
             },
             {
                 id: 12,
+                code: "013",
                 name: "Arreglo Floral Rosa Tierna",
+                category: "Rosas Rosadas",
                 price: 162500,
                 image: "/assets/catalog/ramo13.webp",
                 description: "Arreglo en base oscura con rosas rosadas, solidago amarillo y tarjeta personalizada. Diseño triangular pleno de delicadeza para un regalo especial."
             },
             {
                 id: 13,
+                code: "009",
                 name: "Ramo Nube de Amor",
+                category: "Combinación de Rosas",
                 price: 225000,
                 image: "/assets/catalog/ramo9.webp",
                 description: "Composición circular de rosas rojas y blancas envueltas en una abundante nube de gypsophila. Diseño esférico y elegante con efecto nube de algodón."
             },
             {
                 id: 14,
+                code: "007",
                 name: "Ramo Romance Bicolor Premium",
+                category: "Combinación de Rosas",
                 price: 250000,
                 image: "/assets/catalog/ramo7.webp",
                 description: "Generoso bouquet con rosas rojas y blancas envueltas en velo rosa pastel y violeta. Una presentación amplia y romántica que transmite ternura y pasión."
             },
             {
                 id: 15,
+                code: "001",
                 name: "Ramo Mixto Pasión Sutil",
+                category: "Combinación de Rosas",
                 price: 93750,
                 image: "/assets/catalog/ramo1.webp",
                 description: "Elegante combinación de cinco rosas rojas con alstroemerias blancas y delicadas notas de solidago amarillo. Presentado en envoltura crema con un acabado romántico y natural."
             },
             {
                 id: 16,
+                code: "004",
                 name: "Ramo Bicolor Elegancia",
+                category: "Combinación de Rosas",
                 price: 162500,
                 image: "/assets/catalog/ramo4.webp",
                 description: "Combinación armoniosa de rosas rojas y blancas con eucalipto, envueltas en papel beige tipo cono. Acabado con lazo satinado dorado para un toque distinguido."
             },
             {
                 id: 17,
+                code: "006",
                 name: "Ramo Rústico Bicolor",
+                category: "Combinación de Rosas",
                 price: 168750,
                 image: "/assets/catalog/ramo6.webp",
                 description: "Rosas rojas y blancas combinadas con gypsophila y follaje verde en envoltura craft natural. Estilo rústico y romántico, ideal para sorprender en cualquier ocasión."
             },
             {
                 id: 18,
+                code: "033",
                 name: "Box Rosas y Ferrero",
+                category: "Rosas con Ferrero",
                 price: 500000,
                 image: "/assets/catalog/ramo33.webp",
                 description: "Caja negra premium con rosas rojas combinadas con chocolates Ferrero Rocher dorados. El detalle perfecto que une romance y dulzura."
             },
             {
                 id: 19,
+                code: "041",
                 name: "Ramo Rosas y Ferrero",
+                category: "Rosas con Ferrero",
                 price: 237500,
                 image: "/assets/catalog/ramo41.webp",
                 description: "Ramo blanco con rosas rojas y paniculata coronado por una caja de Ferrero Rocher. Decorado con mariposa dorada y lazos rojos para un detalle indulgente."
             },
             {
                 id: 20,
+                code: "042",
                 name: "Box Rosas con Ferrero Rocher",
+                category: "Rosas con Ferrero",
                 price: 312500,
                 image: "/assets/catalog/ramo42.webp",
                 description: "Arreglo en caja blanca con rosas rojas y paniculata blanca, acompañado de cajita dorada de Ferrero Rocher. Combinación perfecta para conquistar."
             },
             {
                 id: 21,
+                code: "030",
                 name: "Ramo Estrella Bicolor",
+                category: "Combinación de Rosas",
                 price: 400000,
                 image: "/assets/catalog/ramo30.webp",
                 description: "Composición circular con rosas rojas y blancas decoradas con paniculata. Envoltura tipo estrella en blanco y negro para un look moderno y atractivo."
             },
             {
                 id: 22,
+                code: "029",
                 name: "Ramo Multicolor Rosa Pasión",
+                category: "Combinación de Rosas",
                 price: 562500,
                 image: "/assets/catalog/ramo29.webp",
                 description: "Generoso ramo combinando rosas rosadas claras, oscuras y rojas. Envoltura rosa con efecto flor para un regalo abundante y delicado."
             },
             {
                 id: 23,
+                code: "011",
                 name: "Ramo Amarillo Primavera",
+                category: "Rosas Amarillas",
                 price: 150000,
                 image: "/assets/catalog/ramo11.webp",
                 description: "Bouquet de rosas amarillas con eucalipto plateado en envoltura beige y lazo blanco. Una explosión de luz y vitalidad para regalar alegría."
             },
             {
                 id: 24,
+                code: "010",
                 name: "Ramo Sol Amarillo",
+                category: "Rosas Amarillas",
                 price: 150000,
                 image: "/assets/catalog/ramo10.webp",
                 description: "Doce rosas amarillas con detalles de paniculata en envoltura azul marino. Acabado con lazo amarillo, perfecto para alegrar el día."
             },
             {
                 id: 25,
+                code: "039",
                 name: "Ramo Mariposas Rosadas",
+                category: "Rosas Rosadas",
                 price: 150000,
                 image: "/assets/catalog/ramo39.webp",
                 description: "Lindo ramo de rosas rosadas con paniculata y mariposas doradas decorativas. Envoltura crema con lazo rosa, perfecto para regalar ternura."
             },
             {
                 id: 26,
+                code: "038",
                 name: "Mini Ramo Rosa Tierna",
+                category: "Rosas Rosadas",
                 price: 150000,
                 image: "/assets/catalog/ramo38.webp",
                 description: "Compacto ramo de rosas rosadas con paniculata blanca, en envoltura rosa translúcida. Detalle dulce y delicado para regalos cercanos al corazón."
             },
             {
                 id: 27,
+                code: "037",
                 name: "Ramo Rosa Pastel Eucalipto",
+                category: "Rosas Rosadas",
                 price: 187500,
                 image: "/assets/catalog/ramo37.webp",
                 description: "Bouquet vertical de rosas rosadas con eucalipto plateado, en envoltura blanca con interior rosa pastel. Composición delicada y sofisticada."
             },
             {
                 id: 28,
+                code: "043",
                 name: "Ramo Sol Romántico",
+                category: "Girasoles y Rosas",
                 price: 75000,
                 image: "/assets/catalog/ramo43.webp",
                 description: "Original combinación de rosas rojas con un girasol central, paniculata y solidago. Envoltura dorada con motivos, ideal para alegrar el corazón."
@@ -1229,47 +1453,121 @@ const products = [
         ];        
 
         // Formatear precio
+
+        let currentFilter = 'all';
+        let searchQuery = '';
+
         function formatPrice(price) {
+            if (!price || price === 0) return 'COTIZAR';
             return '$' + price.toLocaleString('es-CO');
         }
 
-        // Renderizar todos los productos
-        function renderProducts() {
-            const grid = document.getElementById('products-grid');
-            
-            grid.innerHTML = products.map(product => `
+        function buildCard(p) {
+            const priceText = p.priceLabel || formatPrice(p.price);
+            const codeText = p.code ? 'COD ' + p.code + ' - ' : '';
+            const wa = 'https://wa.me/573242258939?text=' +
+                encodeURIComponent('Hola, me interesa el producto ' + codeText + p.name + ' - ' + priceText);
+            return `
                 <div class="product-card">
                     <div class="product-image-container">
-                        <img src="${product.image}" alt="${product.name}" class="product-image" loading="lazy">
-                        <div class="birthday-badge-product">🎂 Cumpleaños</div>
+                        <img src="${p.image}" alt="${p.name}" class="product-image" loading="lazy">
+                        ${p.code ? '<span class="product-code-badge">COD ' + p.code + '</span>' : ''}
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">${product.name}</h3>
-                        <div class="product-description">${product.description}</div>
+                        <h3 class="product-name">${p.name}</h3>
+                        <div class="product-description">${p.description}</div>
                         <div class="product-footer">
                             <div>
-                                <span class="price-label">Desde</span>
-                                <div class="product-price">${formatPrice(product.price)}</div>
+                                <span class="price-label">Precio</span>
+                                <div class="product-price">${priceText}</div>
                             </div>
-                            <a href="https://wa.me/573242258939?text=Hola,%20me%20interesa%20el%20producto:%20${encodeURIComponent(product.name)}%20-%20${formatPrice(product.price)}%20para%20cumpleaños" 
-                               class="btn-order" 
-                               target="_blank"
-                               onclick="trackConversion()">
-                                <svg viewBox="0 0 24 24" fill="currentColor">
+                            <a href="${wa}" class="btn-order" target="_blank" onclick="trackConversion()">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                                 </svg>
-                                Pedir Ahora
+                                Pedir
                             </a>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                </div>`;
         }
 
-        // Inicializar
+        function applyFilters() {
+            let list = products.slice();
+            if (currentFilter !== 'all') {
+                list = list.filter(p =>
+                    p.category === currentFilter ||
+                    (p.categories && p.categories.indexOf(currentFilter) !== -1)
+                );
+            }
+            if (searchQuery) {
+                const q = searchQuery.toLowerCase();
+                list = list.filter(p =>
+                    (p.name && p.name.toLowerCase().indexOf(q) !== -1) ||
+                    (p.code && p.code.toLowerCase().indexOf(q) !== -1) ||
+                    (p.description && p.description.toLowerCase().indexOf(q) !== -1)
+                );
+            }
+            // Ordenar por precio asc (los con price 0 al final)
+            list.sort((a, b) => {
+                const ap = a.price || Number.MAX_SAFE_INTEGER;
+                const bp = b.price || Number.MAX_SAFE_INTEGER;
+                return ap - bp;
+            });
+            return list;
+        }
+
+        function renderProducts() {
+            const list = applyFilters();
+            const colCheap = document.getElementById('col-cheap');
+            const colMid   = document.getElementById('col-medium');
+            const colExp   = document.getElementById('col-expensive');
+            const empty    = document.getElementById('empty-state');
+            const info     = document.getElementById('results-info');
+
+            if (list.length === 0) {
+                colCheap.innerHTML = colMid.innerHTML = colExp.innerHTML = '';
+                empty.style.display = 'block';
+                info.textContent = '';
+                return;
+            }
+            empty.style.display = 'none';
+            info.textContent = 'Mostrando ' + list.length + ' producto' + (list.length === 1 ? '' : 's') +
+                (currentFilter !== 'all' ? ' en "' + currentFilter + '"' : '') +
+                (searchQuery ? ' que coinciden con "' + searchQuery + '"' : '');
+
+            const total = list.length;
+            const third = Math.ceil(total / 3);
+            const cheap = list.slice(0, third);
+            const mid   = list.slice(third, third * 2);
+            const exp   = list.slice(third * 2);
+
+            colCheap.innerHTML = cheap.map(buildCard).join('') || '<p style="color:#999;text-align:center;padding:1rem;font-size:.9rem">Sin productos en este rango</p>';
+            colMid.innerHTML   = mid.map(buildCard).join('')   || '<p style="color:#999;text-align:center;padding:1rem;font-size:.9rem">Sin productos en este rango</p>';
+            colExp.innerHTML   = exp.map(buildCard).join('')   || '<p style="color:#999;text-align:center;padding:1rem;font-size:.9rem">Sin productos en este rango</p>';
+        }
+
+        function setFilter(cat, btn) {
+            currentFilter = cat;
+            document.querySelectorAll('#filter-buttons .filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts();
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
+            const search = document.getElementById('search-input');
+            if (search) {
+                search.addEventListener('input', function(e) {
+                    searchQuery = (e.target.value || '').trim();
+                    renderProducts();
+                });
+            }
+            document.querySelectorAll('#filter-buttons .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() { setFilter(btn.dataset.filter, btn); });
+            });
             renderProducts();
         });
+
     </script>
 </body>
 </html>
