@@ -886,6 +886,50 @@
         </div>
     </section>
 
+    <section class="products-section">
+        <div class="container">
+            <h2 class="section-title">Catálogo de Flores a Domicilio</h2>
+            <p class="section-subtitle">Descubre nuestras opciones para enviar flores a domicilio: rosas a domicilio, ramos de flores a domicilio, orquídeas a domicilio y arreglos florales a domicilio. Tu floristería a domicilio de confianza.</p>
+            
+            <div class="catalog-controls">
+                <div class="search-wrap">
+                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar por nombre o código (ej: 025, rosas, ferrero)" aria-label="Buscar productos">
+                </div>
+                <div class="filter-buttons" id="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="Rosas Rojas">Rojas</button>
+                    <button class="filter-btn" data-filter="Rosas Rosadas">Rosadas</button>
+                    <button class="filter-btn" data-filter="Combinación de Rosas">Combinación</button>
+                    <button class="filter-btn" data-filter="Cajas Premium">Cajas</button>
+                    <button class="filter-btn" data-filter="Girasoles">Girasoles</button>
+                    <button class="filter-btn" data-filter="Girasoles y Rosas">Girasoles y Rosas</button>
+                    <button class="filter-btn" data-filter="Rosas con Ferrero">Con Ferrero</button>
+                    <button class="filter-btn" data-filter="Cumpleaños">Cumpleaños</button>
+                </div>
+            </div>
+            <div class="results-info" id="results-info"></div>
+            <div class="products-columns" id="products-columns">
+                <div class="price-column">
+                    <div class="price-column-header">Económicos<small>Los precios más accesibles</small></div>
+                    <div class="price-column-products" id="col-cheap"></div>
+                </div>
+                <div class="price-column">
+                    <div class="price-column-header">Intermedios<small>Detalle equilibrado</small></div>
+                    <div class="price-column-products" id="col-medium"></div>
+                </div>
+                <div class="price-column">
+                    <div class="price-column-header">Premium<small>Lujo y abundancia</small></div>
+                    <div class="price-column-products" id="col-expensive"></div>
+                </div>
+                <div class="empty-state" id="empty-state" style="display:none">
+                    <h3>No se encontraron productos</h3>
+                    <p>Prueba con otra búsqueda o categoría.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Delivery Process Section -->
     <section class="delivery-process">
         <div class="container">
@@ -966,49 +1010,7 @@
     </section>
 
     <!-- Products Section -->
-    <section class="products-section">
-        <div class="container">
-            <h2 class="section-title">Catálogo de Flores a Domicilio</h2>
-            <p class="section-subtitle">Descubre nuestras opciones para enviar flores a domicilio: rosas a domicilio, ramos de flores a domicilio, orquídeas a domicilio y arreglos florales a domicilio. Tu floristería a domicilio de confianza.</p>
-            
-            <div class="catalog-controls">
-                <div class="search-wrap">
-                    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-                    <input type="text" id="search-input" class="search-input" placeholder="Buscar por nombre o código (ej: 025, rosas, ferrero)" aria-label="Buscar productos">
-                </div>
-                <div class="filter-buttons" id="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="Rosas Rojas">Rojas</button>
-                    <button class="filter-btn" data-filter="Rosas Rosadas">Rosadas</button>
-                    <button class="filter-btn" data-filter="Combinación de Rosas">Combinación</button>
-                    <button class="filter-btn" data-filter="Cajas Premium">Cajas</button>
-                    <button class="filter-btn" data-filter="Girasoles">Girasoles</button>
-                    <button class="filter-btn" data-filter="Girasoles y Rosas">Girasoles y Rosas</button>
-                    <button class="filter-btn" data-filter="Rosas con Ferrero">Con Ferrero</button>
-                    <button class="filter-btn" data-filter="Cumpleaños">Cumpleaños</button>
-                </div>
-            </div>
-            <div class="results-info" id="results-info"></div>
-            <div class="products-columns" id="products-columns">
-                <div class="price-column">
-                    <div class="price-column-header">Económicos<small>Los precios más accesibles</small></div>
-                    <div class="price-column-products" id="col-cheap"></div>
-                </div>
-                <div class="price-column">
-                    <div class="price-column-header">Intermedios<small>Detalle equilibrado</small></div>
-                    <div class="price-column-products" id="col-medium"></div>
-                </div>
-                <div class="price-column">
-                    <div class="price-column-header">Premium<small>Lujo y abundancia</small></div>
-                    <div class="price-column-products" id="col-expensive"></div>
-                </div>
-                <div class="empty-state" id="empty-state" style="display:none">
-                    <h3>No se encontraron productos</h3>
-                    <p>Prueba con otra búsqueda o categoría.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Testimonials Section -->
     <section class="testimonials">

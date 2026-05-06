@@ -801,9 +801,6 @@
         </div>
     </section>
 
-
-
-    <!-- Products Section -->
     <section class="products-section">
         <div class="container">
             <h2 class="section-title">Catálogo de Ramos Fúnebres y Coronas Fúnebres</h2>
@@ -843,6 +840,11 @@
             </div>
         </div>
     </section>
+
+
+
+    <!-- Products Section -->
+    
 
     <!-- Features Section -->
     <section class="features">
@@ -1299,12 +1301,6 @@
             document.querySelectorAll('#filter-buttons .filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() { setFilter(btn.dataset.filter, btn); });
             });
-            renderProducts();
-        });
-
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
             renderProducts();
         });
     </script>
